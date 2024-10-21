@@ -1,0 +1,15 @@
+Nouveau modèle
+
+--------------------------
+Starting at epoch: 0
+--------------------------
+Epoch: 1/5000, loss: 1.084e+00, data: 1.005e+00, pde: 7.877e-02
+Epoch: 2/5000, loss: 1.024e+00, data: 1.004e+00, pde: 2.007e-02
+Epoch: 3/5000, loss: 1.042e+00, data: 1.003e+00, pde: 3.965e-02
+Epoch: 4/5000, loss: 1.026e+00, data: 1.002e+00, pde: 2.428e-02
+Epoch: 5/5000, loss: 1.019e+00, data: 1.001e+00, pde: 1.817e-02
+---------------------
+Epoch 500/5000 :
+Train : loss: 1.647e+22, data: 2.426e+05, pde: 6.261e+22
+Test  : loss: 1.230e+19, data: 2.379e+04, pde: 5.895e+14
+time: 121s

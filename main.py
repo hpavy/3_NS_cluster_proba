@@ -18,7 +18,7 @@ time_start = time.time()
 
 ############# LES VARIABLES ################
 
-folder_result = '1_first_try'  # le nom du dossier de résultat
+folder_result = '2_first_try'  # le nom du dossier de résultat
 
 random_seed_train = 2632  # la seed de train, la changer pour avoir de nouveau résultats
 random_seed_test = 2002   # la seed de test, toujours garder la même pour pouvoir comparer
@@ -26,13 +26,13 @@ random_seed_test = 2002   # la seed de test, toujours garder la même pour pouvo
 
 
 ##### Le modèle de résolution de l'équation de la chaleur
-nb_itt = 10000     # le nb d'epoch
+nb_itt = 5000     # le nb d'epoch
 resample_rate = 300000  # le taux de resampling
 display = 500       # le taux d'affichage
 poids = [1, 1]   # les poids pour la loss
 
-n_data = 10000         # le nb de points initiaux
-n_pde = 10000          # le nb de points pour la pde
+n_data = 20000         # le nb de points initiaux
+n_pde = 20000          # le nb de points pour la pde
 
 n_data_test = 5000
 n_pde_test = 5000
@@ -46,7 +46,7 @@ x_proba_min = 0.03
 y_proba_max = 0.15
 y_proba_min = 0.05
 
-proba = 0.5
+proba = 0.0
 
 ##### Le code ###############################
 ###############################################
@@ -178,9 +178,21 @@ with open(folder_result+'/print.txt', 'a') as f:
           proba=proba, rectangle_proba=rectangle_proba)
 
 ####### On save le model et les losses
+
 torch.save({
     'model_state_dict': model.state_dict(),
     'optimizer_state_dict': optimizer.state_dict(),
 }, folder_result+'/model_weights.pth')
 write_csv(train_loss, folder_result, file_name='/train_loss.csv')
 write_csv(test_loss, folder_result, file_name='/test_loss.csv')
+
+
+
+dossier_end = Path(folder_result + f"/epoch{len(train_loss)}")
+dossier_end.mkdir(parents=True, exist_ok=True)
+torch.save({
+    'model_state_dict': model.state_dict(),
+    'optimizer_state_dict': optimizer.state_dict(),
+}, folder_result+f"/epoch{len(train_loss)}"+'/model_weights.pth')
+write_csv(train_loss, folder_result + f"/epoch{len(train_loss)}", file_name='/train_loss.csv')
+write_csv(test_loss, folder_result + f"/epoch{len(train_loss)}", file_name='/test_loss.csv')

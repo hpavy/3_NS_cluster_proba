@@ -52,8 +52,8 @@ def train(nb_itt, train_loss, test_loss, resample_rate, display, poids,
         # loss du pde
         test_pde = model(X_test_pde)
         test_pde1, test_pde2, test_pde3 = pde(test_pde, X_test_pde, Re=Re,
-                                              x_std=x_std, y_std=y_std, u_mean=u_mean, v_mean=v_mean,
-                                              p_std=p_std, t_std=t_std, u_std=u_std, v_std=v_std) 
+                                          x_std=x_std, y_std=y_std, u_mean=u_mean, v_mean=v_mean,
+                                          p_std=p_std, t_std=t_std, u_std=u_std, v_std=v_std) 
         loss_test_pde = torch.mean(torch.abs(test_pde1)) + torch.mean(torch.abs(test_pde2)) + torch.mean(torch.abs((test_pde3))) #(MSE) 
 
         # loss de la data
@@ -76,7 +76,7 @@ def train(nb_itt, train_loss, test_loss, resample_rate, display, poids,
 
         if (epoch <= 4):
             print(f"Epoch: {epoch+1}/{nb_it_tot}, loss: {train_loss[-1]:.3e}," +
-                   f" data: {loss_data:.3e}, pde: {loss_pde:.3e}")
+                  f" data: {loss_data:.3e}, pde: {loss_pde:.3e}")
             print(f"Epoch: {epoch+1}/{nb_it_tot}, loss: {train_loss[-1]:.3e}," +
                   f" data: {loss_data:.3e}, pde: {loss_pde:.3e}", file=f)
 
