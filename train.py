@@ -76,9 +76,9 @@ def train(nb_itt, train_loss, test_loss, resample_rate, display, poids,
 
         if (epoch <= 4):
             print(f"Epoch: {epoch+1}/{nb_it_tot}, loss: {train_loss[-1]:.3e}," +
-                   " data: {loss_data:.3e}, pde: {loss_pde:.3e}")
+                   f" data: {loss_data:.3e}, pde: {loss_pde:.3e}")
             print(f"Epoch: {epoch+1}/{nb_it_tot}, loss: {train_loss[-1]:.3e}," +
-                  " data: {loss_data:.3e}, pde: {loss_pde:.3e}", file=f)
+                  f" data: {loss_data:.3e}, pde: {loss_pde:.3e}", file=f)
 
         if (epoch+1) % resample_rate == 0:
             # On resample les points
