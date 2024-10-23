@@ -89,13 +89,13 @@ def train(nb_itt, train_loss, test_loss, resample_rate, display, poids,
             points_data_train_non_proba = np.random.choice(len(X), n_data-int(n_data*proba), replace=False)
             inputs_train_data_non_proba = torch.from_numpy(X[points_data_train_non_proba]).requires_grad_().to(device)
             outputs_train_data_non_proba = torch.from_numpy(U[points_data_train_non_proba]).requires_grad_().to(device)
-            inputs_train_data = torch.cat((inputs_train_data_proba, inputs_train_data_non_proba), 0)
-            outputs_train_data = torch.cat((outputs_train_data_proba, outputs_train_data_non_proba), 0)
+            X_train_data = torch.cat((inputs_train_data_proba, inputs_train_data_non_proba), 0)
+            U_train_data = torch.cat((outputs_train_data_proba, outputs_train_data_non_proba), 0)
             
             # PDE
             points_pde_proba = rectangle_proba.generate_random(int(n_pde*proba)).to(device)   # les points pour la pde
             points_pde_non_proba = rectangle.generate_random(n_pde-int(n_pde*proba)).to(device)   # les points pour la pde
-            points_pde = torch.cat((points_pde_proba, points_pde_non_proba), 0)
+            X_train_pde = torch.cat((points_pde_proba, points_pde_non_proba), 0)
             
             
 

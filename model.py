@@ -47,28 +47,32 @@ def pde(U, input, Re,
 class PINNs(nn.Module):
     def __init__(self):
         super().__init__()
-        self.fc1 = nn.Linear(3, 32)  # Couche d'entrée avec 2 neurones d'entrée et 16 neurones cachés
-        self.fc2 = nn.Linear(32, 32)
-        self.fc3 = nn.Linear(32, 32)
-        self.fc4 = nn.Linear(32, 32)
-        self.fc5 = nn.Linear(32, 32)
-        self.fc6 = nn.Linear(32, 32)
-        self.fc7 = nn.Linear(32, 32)
-        self.fc8 = nn.Linear(32, 32)
-        self.fc9 = nn.Linear(32, 32)
-        self.fc10 = nn.Linear(32, 32)
-        self.fcf = nn.Linear(32, 3)
+        self.couches = nn.ModuleList(
+            [
+                nn.Linear(3, 64),  
+                nn.Linear(64, 64),
+                nn.Linear(64, 64),
+                nn.Linear(64, 64),
+                nn.Linear(64, 64),
+                nn.Linear(64, 64),
+                nn.Linear(64, 64),
+                nn.Linear(64, 64),
+                nn.Linear(64, 64),
+                nn.Linear(64, 64),
+                nn.Linear(64, 3),
+            ]
+        )
+        self.initial_param()
 
     def forward(self, x):
-        x = torch.tanh(self.fc1(x))
-        x = torch.tanh(self.fc2(x))
-        x = torch.tanh(self.fc3(x))
-        x = torch.tanh(self.fc4(x))
-        x = torch.tanh(self.fc5(x))
-        x = torch.tanh(self.fc6(x))
-        x = torch.tanh(self.fc7(x))
-        x = torch.tan(self.fc8(x))
-        x = torch.tan(self.fc9(x))
-        x = torch.tan(self.fc10(x))
-        x = self.fcf(x)
+        for k, couche in enumerate(self.couches):
+            if k != len(self.couches) - 1:
+                x = torch.tanh(couche(x))
+            else:
+                x = couche(x)
         return x  # Retourner la sortie
+
+    def initial_param(self):
+        for couche in self.couches:
+            nn.init.xavier_uniform_(couche.weight)
+            nn.init.zeros_(couche.bias)
